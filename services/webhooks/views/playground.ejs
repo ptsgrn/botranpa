@@ -1,0 +1,111 @@
+<!--
+ Copyright (c) 2023 Patsagorn Y.
+ 
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+  <!-- jsoneditore -->
+  <link href="/deps/jsoneditor.min.css" rel="stylesheet" type="text/css" />
+  <script src="/deps/jsoneditor.min.js"></script>
+  <title>POST Playground</title>
+</head>
+
+<body>
+  <main class="container">
+    <h1>POST Playground</h1>
+    <form action="/playground" method="POST">
+      <label>URL: <input type="text" name="url" id="url" aria-autocomplete="none" autocomplete="off"
+          value="/hooks"></label>
+      <div id="jsoneditor"></div>
+      <button type="submit">Submit</button>
+    </form>
+    <h2>Result:</h2>
+    <pre><code id="result"></code></pre>
+    <small id="statusText"></small>
+  </main>
+  <style>
+  </style>
+  <script>
+    const form = document.querySelector('form');
+    const result = document.querySelector('#result');
+    const statusText = document.querySelector('#statusText');
+    const submitButton = document.querySelector('button[type="submit"]');
+    const bodyEditor = document.querySelector('#jsoneditor');
+    let isValidationError = false;
+    const editor = new JSONEditor(bodyEditor, {
+      mode: 'code',
+      // statusBar: false,
+      modes: ['code', 'text', 'view', 'tree'], // allowed modes
+      onError: function (err) {
+        submitButton.removeAttribute('disabled');
+        submitButton.textContent = 'Submit';
+        submitButton.removeAttribute('aria-busy');
+      },
+      onModeChange: function (newMode, oldMode) {
+        console.log('Mode switched from', oldMode, 'to', newMode);
+      },
+      onChange: function () {
+        isValidationError = false;
+        try {
+          const json = editor.get();
+          localStorage.setItem('json', JSON.stringify(json));
+        } catch (err) {
+          console.error(err);
+        }
+      },
+      onChangeJSON: function (json) {
+        isValidationError = false;
+        try {
+          localStorage.setItem('json', JSON.stringify(json));
+        } catch (err) {
+          console.error(err);
+        }
+      },
+      onValidationError: function (err) {
+        isValidationError = true;
+      },
+    });
+    editor.set(localStorage.getItem('json') || {});
+
+    form.addEventListener('submit', async (e) => {
+      let startTime = Date.now();
+      e.preventDefault();
+      submitButton.setAttribute('disabled', true);
+      submitButton.textContent = 'Submitting...';
+      submitButton.setAttribute('aria-busy', true);
+      const url = form.url.value;
+      const body = editor.get();
+      console.log(body)
+      try {
+
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
+        const data = await res.json();
+        result.textContent = JSON.stringify(data, null, 2);
+        statusText.textContent = `Status: ${res.status} ${res.statusText} (${Date.now() - startTime}ms)`;
+      } catch (err) {
+        result.textContent = err.message;
+        statusText.textContent = `Status: ${err.status} ${err.statusText} (${Date.now() - startTime}ms)`;
+      }
+      submitButton.removeAttribute('disabled');
+      submitButton.textContent = 'Submit';
+      submitButton.removeAttribute('aria-busy');
+    });
+  </script>
+</body>
+
+</html>

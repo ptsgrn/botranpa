@@ -1,0 +1,25 @@
+{
+  "name": "@botranpa/root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "preconstruct dev && manypkg check",
+    "build": "preconstruct build"
+  },
+  "workspaces": [
+    "scripts/*",
+    "app/*",
+    "services/*"
+  ],
+  "dependencies": {
+    "@manypkg/cli": "^0.20.0",
+    "@preconstruct/cli": "^2.3.0"
+  },
+  "preconstruct": {
+    "packages": [
+      "scripts/*",
+      "app/*",
+      "services/*"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+/**
+ * Copyright (c) 2023 Patsagorn Y.
+ * 
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css");
+
+@font-face {
+  font-family: "Gimmick";
+  src: url(/f/FCGimmickR.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Gimmick";
+  src: url(/f/FCGimmickB.ttf) format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url(/f/inter-var.ttf) format("truetype");
+  variant: normal;
+}
+
+body {
+  font-family: "Inter", "Gimmick", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #eeeeee;
+}
