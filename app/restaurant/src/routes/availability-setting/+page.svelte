@@ -23,7 +23,6 @@
 			name: 'ผักกาดหอม',
 			available: true
 		},
-
 		{
 			type: 'วัตถุดิบ',
 			group: 'ผัก',
