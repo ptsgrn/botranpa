@@ -11,6 +11,7 @@
 	import Link from 'carbon-icons-svelte/lib/Link.svelte';
 	import OperationsRecord from 'carbon-icons-svelte/lib/OperationsRecord.svelte';
 	import CollapseCategories from 'carbon-icons-svelte/lib/CollapseCategories.svelte';
+	import { Book } from 'carbon-icons-svelte';
 </script>
 
 <div class="drawer" data-theme="botranpa">
@@ -37,9 +38,11 @@
 
 		<footer class="footer p-10 bg-neutral text-neutral-content font-display">
 			<div>
+				<span class="footer-title text-lg">บอตร้านป้า: ร้านอาหาร</span>
 				<span class="footer-title">โครงการ</span>
 				<a class="link link-hover" href="/about">เกี่ยวกับ</a>
-				<a class="link link-hover flex gap-2" href="/about"
+				<a class="link link-hover" href="/manual">คู่มือการใช้งาน</a>
+				<a class="link link-hover flex gap-2" href="https://gitlab.com/ptsgrn/botranpa"
 					>ซอร์สโค้ด <svg
 						class="inline fill-gray-500"
 						xmlns="http://www.w3.org/2000/svg"
@@ -51,6 +54,7 @@
 						/></svg
 					></a
 				>
+				<a class="link link-hover" href="/disclaimer-and-license">ข้อตกลงการใช้ซอร์ฟแวร์ และสัญญาอนุญาตของโปรแกรม</a>
 			</div>
 		</footer>
 	</div>
@@ -76,9 +80,9 @@
 			<DrawerLink href="/about">
 				<Information width="20" height="20" /> เกี่ยวกับโครงการ
 			</DrawerLink>
-			<DrawerLink href="/contact">
-				<Link width="20" height="20" />
-				ติดต่อ
+			<DrawerLink href="/manual">
+				<Book width="20" height="20" />
+				คู่มือการใช้งาน
 			</DrawerLink>
 		</ul>
 	</div>

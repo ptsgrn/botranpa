@@ -11,6 +11,7 @@
 	import type { AvailabilityEntry } from '$lib/types';
 	import { isEditing } from '$lib/stores/availability';
 	import { onMount } from 'svelte';
+	import { Edit } from 'carbon-icons-svelte';
 	export let type: string = '';
 	export let group: string = '';
 
@@ -58,17 +59,22 @@
 	<div class="card-body px-4 pt-4 {$isEditing ? 'pb-1' : 'pb-4'}">
 		<h3 class="font-sans text-lg font-bold">
 			{group}
+			{#if $isEditing}
+				<button class="btn btn-sm btn-ghost tooltip" data-tip={`เปลี่ยนชื่อหัวข้อ "${group}"`}>
+					<Edit />
+				</button>
+			{/if}
 		</h3>
 		<div class="flex">
 			<label class="label cursor-pointer gap-2" for={`checkbox-${group}-all`}>
 				<input
-				disabled={$isEditing}
-				type="checkbox"
-				id={`checkbox-${group}-all`}
-				class="toggle toggle-primary"
-				on:change={onToggleAll}
-				bind:checked={checkedAll}
-				bind:this={checkAllCheckbox}
+					disabled={$isEditing}
+					type="checkbox"
+					id={`checkbox-${group}-all`}
+					class="toggle toggle-primary"
+					on:change={onToggleAll}
+					bind:checked={checkedAll}
+					bind:this={checkAllCheckbox}
 				/>
 				<span class="label-text font-serif">ทั้งหมด</span>
 			</label>
@@ -81,7 +87,7 @@
 		<button
 			class="btn btn-ghost btn-sm mx-4 mb-4 mt-2 border-dashed bg-transparent border-gray-700 border-2"
 		>
-			<Add width="20" height="20" /> เมนู
+			<Add width="20" height="20" /> เพิ่มรายการ
 		</button>
 	{/if}
 </div>

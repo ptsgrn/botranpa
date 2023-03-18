@@ -34,7 +34,7 @@
 	}
 
 	let isEdittingEntry = false;
-	let isEditted = false;
+	let isEditted = index == 1;
 </script>
 
 <label class="label cursor-pointer flex" for={`checkbox-${group}-${index}-${id}`}>
@@ -80,15 +80,15 @@
 				<input type="text" class="input input-bordered max-w-xl" />
 			</label>
 			<label class="label">
-				<span class="label-text">กลุ่ม</span>
-				<input type="text" class="input input-bordered max-w-xl" />
+				<span class="label-text">ชื่ออื่น</span>
+				<textarea class="textarea input-bordered max-w-xl" />
 			</label>
 		</p>
 		<div class="modal-action flex items-center">
 			<span class="font-serif">
 				กดบันทึกที่หน้าหลักหลังจากแก้ไขเสร็จสิ้น
 			</span>
-			<button class="btn btn-secondary">รีเซ็ต</button>
+			<button class="btn btn-outline btn-secondary">ยกเลิก</button>
 			<button
 				on:click={() => {
 					isEdittingEntry = false;

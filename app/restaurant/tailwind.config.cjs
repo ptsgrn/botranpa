@@ -19,8 +19,8 @@ const config = {
 		themes: [
 			{
 				botranpa: {
-					primary: '#84cc16',
-					secondary: '#D926AA',
+					primary: '#661AE6',
+					secondary: '#ef4444',
 					accent: '#661AE6',
 					neutral: '#191D24',
 					'base-100': '#161616',

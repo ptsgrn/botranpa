@@ -6,3 +6,6 @@ dist
 # python
 __pycache__
 *.py[cod]
+
+# dummy files
+li.txt
