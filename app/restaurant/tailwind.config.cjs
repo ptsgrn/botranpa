@@ -8,10 +8,10 @@ const config = {
 		extend: {
 			// fonts
 			fontFamily: {
-				'sans': ['IBM Plex Sans Thai', 'sans-serif'],
-				'serif': ['Sarabun', 'serif'],
-				'display': ['IBM Plex Sans Thai', 'sans-serif'],
-				'mono': ['IBM Plex Mono', 'monospace']
+				sans: ['IBM Plex Sans Thai', 'sans-serif'],
+				serif: ['Sarabun', 'IBM Plex Sans Thai', 'serif'],
+				display: ['Gimmick', 'sans-serif'],
+				mono: ['IBM Plex Mono', 'monospace']
 			}
 		}
 	},
@@ -19,21 +19,21 @@ const config = {
 		themes: [
 			{
 				botranpa: {
-					"primary": "#84cc16",
-					"secondary": "#D926AA",
-					"accent": "#661AE6",
-					"neutral": "#191D24",
-					"base-100": "#161616",
-					"info": "#3ABFF8",
-					"success": "#36D399",
-					"warning": "#FBBD23",
-					"error": "#F87272",
-				},
+					primary: '#84cc16',
+					secondary: '#D926AA',
+					accent: '#661AE6',
+					neutral: '#191D24',
+					'base-100': '#161616',
+					info: '#3ABFF8',
+					success: '#36D399',
+					warning: '#FBBD23',
+					error: '#F87272'
+				}
 			}
 		]
 	},
 
 	plugins: [typography, daisyui]
-}
+};
 
 module.exports = config;

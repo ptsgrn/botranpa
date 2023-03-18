@@ -28,7 +28,7 @@
 						<OpenPanelLeft width="28" height="28" />
 					</button>
 				</div>
-				<a href="/" class="text-xl font-bold">
+				<a href="/" class="text-xl font-bold font-display">
 					BotRanPa:&nbsp;Restaurant
 				</a>
 			</div>

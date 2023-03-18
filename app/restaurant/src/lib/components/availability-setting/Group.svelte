@@ -18,7 +18,7 @@
 	$: groupAvailabilities = $availabilities.filter((a) => a.type === type && a.group === group);
 
 	onMount(() => {
-		toggleCheck()
+		toggleCheck();
 	});
 
 	function onToggleAll() {
@@ -29,42 +29,43 @@
 			}
 			return a;
 		});
-    toggleCheck();
+		toggleCheck();
 	}
 
 	export function toggleCheck() {
-    if (!checkAllCheckbox) return;
-		console.log('toggleCheck')
-    const gAvailabilities = $availabilities.filter((a) => a.type === type && a.group === group);
-    if (gAvailabilities.every((a) => a.available)) {
-      checkAllCheckbox.checked = true;
-      checkAllCheckbox.indeterminate = false;
-    } else if (gAvailabilities.some((a) => a.available)) {
-      checkAllCheckbox.checked = false;
-      checkAllCheckbox.indeterminate = true;
-    } else {
-      checkAllCheckbox.checked = false;
-      checkAllCheckbox.indeterminate = false;
-    }
+		if (!checkAllCheckbox) return;
+		const gAvailabilities = $availabilities.filter((a) => a.type === type && a.group === group);
+		if (gAvailabilities.every((a) => a.available)) {
+			checkAllCheckbox.checked = true;
+			checkAllCheckbox.indeterminate = false;
+		} else if (gAvailabilities.some((a) => a.available)) {
+			checkAllCheckbox.checked = false;
+			checkAllCheckbox.indeterminate = true;
+		} else {
+			checkAllCheckbox.checked = false;
+			checkAllCheckbox.indeterminate = false;
+		}
 	}
 </script>
 
-<div class="p-3 bg-gray-800 whitespace-nowrap break-inside-avoid form-control">
-	<h3 class="font-sans text-lg font-bold">
-		{group}
-	</h3>
-	<label class="label cursor-pointer justify-start gap-2" for={`checkbox-${group}-all`}>
-		<input
-			type="checkbox"
-			id={`checkbox-${group}-all`}
-			class="toggle toggle-primary"
-			on:change={onToggleAll}
-      bind:checked={checkedAll}
-			bind:this={checkAllCheckbox}
-		/>
-		<span class="label-text">ทั้งหมด</span>
-	</label>
-	{#each groupAvailabilities as { available, type, group, name }, index}
-		<CheckBoxEntry {toggleCheck} {index} checked={available} {name} {group} {type} />
-	{/each}
+<div class="card form-controlp-3 bg-gray-800 whitespace-nowrap break-inside-avoid ">
+	<div class="card-body">
+		<h3 class="font-sans text-lg font-bold">
+			{group}
+		</h3>
+		<label class="label cursor-pointer justify-start gap-2" for={`checkbox-${group}-all`}>
+			<input
+				type="checkbox"
+				id={`checkbox-${group}-all`}
+				class="toggle toggle-primary"
+				on:change={onToggleAll}
+				bind:checked={checkedAll}
+				bind:this={checkAllCheckbox}
+			/>
+			<span class="label-text">ทั้งหมด</span>
+		</label>
+		{#each groupAvailabilities as { available, type, group, name }, index}
+			<CheckBoxEntry {toggleCheck} {index} checked={available} {name} {group} {type} />
+		{/each}
+	</div>
 </div>

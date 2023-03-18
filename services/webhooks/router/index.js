@@ -7,6 +7,7 @@
 import { appendFile, open } from "fs/promises";
 
 import { Router } from "express";
+import apiRouterV1 from './api/v1/index.js';
 import hooksRouter from "./hooks/index.js";
 
 const router = Router();
@@ -16,8 +17,7 @@ const router = Router();
 router.use(async (req, res, next) => {
   // in format [time] [method] [url] req.body
   console.log(
-    `[${new Date().toLocaleString()}] [${req.method}] [${
-      req.url
+    `[${new Date().toLocaleString()}] [${req.method}] [${req.url
     }] ${JSON.stringify(req.body)}`
   );
   next();
@@ -34,6 +34,8 @@ router.get("/playground", (req, res) => {
     lang: req.headers["accept-language"],
   });
 });
+
+router.use('/api/v1', apiRouterV1);
 
 router.use((req, res, next) => {
   if (req.method === "GET")
