@@ -33,4 +33,6 @@ export interface AvailabilityEntry {
 	name: string;
 	/** Sorting number */
 	sort?: number;
+	/** Id */
+	id?: string;
 }

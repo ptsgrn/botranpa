@@ -7,3 +7,4 @@ import type { AvailabilityData } from '$lib/types';
 import { writable } from 'svelte/store';
 
 export const availabilities = writable<AvailabilityData[]>([]);
+export const isEditing = writable<boolean>(true);
