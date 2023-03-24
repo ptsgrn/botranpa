@@ -57,7 +57,7 @@ export default class Extractor extends Trie {
     const and_tokens = this.and_tokens;
 
     const menuParts = this._extractMenuParts(match, and_tokens);
-    let menuData = {};
+    let menuData = [];
     for (let i = 0; i < menuParts.length; i++) {
       const menuPart = menuParts[i];
       const menuPartTokens = this._extractMenuPartTokens({
@@ -102,6 +102,17 @@ export default class Extractor extends Trie {
    */
   _extractMenuPartTokens({ menuPart, add_tokens, not_add_tokens }) {
     // find menu part, which is all text that exist before add_tokens and not_add_tokens
+    /**
+     * @type {{
+     * name: string,
+     * count: number,
+     * note: string,
+     * options: {
+     * name: string,
+     * type: "add" | "not_add"
+     * }[]
+     * }}
+     */
     let ret = {
       name: "",
       count: 1,
@@ -142,10 +153,10 @@ export default class Extractor extends Trie {
    */
   _optionsType(word) {
     if (this.add_tokens.includes(word)) {
-      return "add";
+      return "ใส่";
     }
     if (this.not_add_tokens.includes(word)) {
-      return "not_add";
+      return "ไม่ใส่";
     }
     return "unknown";
   }

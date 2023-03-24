@@ -22,6 +22,9 @@
 			"🐳 restaurant-app",
 			"📜 scripts",
 			"🪝 webhooks",
-		]
+			"👾 extractor"
+		],
+		"jest.autoRevealOutput": "off",
+		"compile-hero.disable-compile-files-on-did-save-code": false
 	}
 }
