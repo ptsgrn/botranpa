@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"name": "🐳 restaurant-app",
+			"path": "app/restaurant"
+		},
+		{
+			"name": "📜 scripts",
+			"path": "scripts"
+		},
+		{
+			"name": "🪝 webhooks",
+			"path": "services/webhooks"
+		},
+		{
+			"name": "👾 extractor",
+			"path": "packages/extractor"
+		}
+	],
+	"settings": {
+		"jest.disabledWorkspaceFolders": [
+			"🐳 restaurant-app",
+			"📜 scripts",
+			"🪝 webhooks",
+		]
+	}
+}

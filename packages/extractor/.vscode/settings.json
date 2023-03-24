@@ -1,0 +1,4 @@
+{
+  "jest.jestCommandLine": "node /home/mose/schools/nsc-botranpa/node_modules/.bin/jest",
+  "jest.rootPath": "./"
+}
