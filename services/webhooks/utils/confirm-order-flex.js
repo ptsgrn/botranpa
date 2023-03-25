@@ -20,11 +20,13 @@ class MenuBuilder {
             weight: "bold",
             position: "relative",
             align: "start",
+            // color: "#FFDAD6ff",
           },
           {
             type: "text",
             text: "ตรวจสอบเมนู หากถูกต้องแล้วให้กดยืนยัน",
             wrap: true,
+            // color: "#FFDAD6ff",
           },
         ],
         position: "relative",
@@ -34,6 +36,8 @@ class MenuBuilder {
         type: "box",
         layout: "vertical",
         contents: [],
+        backgroundColor: "#e5e5e5ff",
+        cornerRadius: "md",
         margin: "none",
       },
       footer: {
@@ -80,17 +84,19 @@ class MenuBuilder {
             margin: "sm",
           },
         ],
-        flex: 0,
       },
       styles: {
         hero: {
           separator: false,
         },
+        body: {
+          backgroundColor: "#e5e5e5ff",
+        },
       },
     };
   }
 
-  addMenu({ name, options }) {
+  addMenu({ name, options = [] }) {
     this.menus.push({
       name,
       options: this._formatOption(options),
@@ -106,14 +112,14 @@ class MenuBuilder {
 
   build() {
     this.bubble.body.contents = this.menus
-      .map((menu) => {
+      .map((menu, i) => {
         return {
           type: "box",
           layout: "vertical",
           contents: [
             {
               type: "text",
-              text: menu.name,
+              text: `${i + 1}. ${menu.name}`,
               weight: "bold",
               size: "xl",
             },
@@ -133,7 +139,6 @@ class MenuBuilder {
                       text: option[0],
                       color: "#aaaaaa",
                       size: "sm",
-                      flex: 1,
                     },
                     {
                       type: "text",
@@ -141,7 +146,6 @@ class MenuBuilder {
                       wrap: true,
                       color: "#666666",
                       size: "sm",
-                      flex: 5,
                     },
                   ],
                 };
@@ -162,29 +166,22 @@ class MenuBuilder {
         acc.push(cur);
         return acc;
       }, []);
+    this.bubble.body.contents.push(
+      {
+        type: "separator",
+        color: "#a2a9b1FF",
+        margin: "md",
+      },
+      {
+        type: "text",
+        text: `รวม ${this.menus.length} รายการ`,
+        margin: "lg",
+        align: "end",
+        size: "md",
+      }
+    );
     return this.bubble;
   }
 }
 
-console.log(
-  JSON.stringify(
-    new MenuBuilder()
-      .addMenu({
-        name: "ข้าวผัดไข่เจียว",
-        options: [
-          { name: "เล็ก", type: "ขนาด" },
-          { name: "ไข่ 1 ฟอง", type: "เพิ่ม" },
-          { name: "ไข่ดาว 1 ฟอง", type: "เพิ่ม" },
-        ],
-      })
-      .addMenu({
-        name: "ข้าวผัดไข่เจียว",
-        options: [
-          { name: "เล็ก", type: "ขนาด" },
-          { name: "ไข่ 1 ฟอง", type: "เพิ่ม" },
-          { name: "ไข่ดาว 1 ฟอง", type: "เพิ่ม" },
-        ],
-      })
-      .build()
-  )
-);
+export default MenuBuilder;

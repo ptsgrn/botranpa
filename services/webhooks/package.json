@@ -8,12 +8,15 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prisma": "prisma"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/dialogflow": "^5.7.0",
+    "@prisma/client": "^4.11.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
@@ -25,6 +28,7 @@
     "@types/express": "^4.17.17",
     "@types/prettier": "^2.7.2",
     "nodemon": "^2.0.21",
-    "prettier": "2.8.4"
+    "prettier": "2.8.4",
+    "prisma": "^4.11.0"
   }
 }

@@ -56,7 +56,7 @@ export default class Extractor extends Trie {
     const not_add_tokens = this.not_add_tokens;
     const and_tokens = this.and_tokens;
 
-    const menuParts = this._extractMenuParts(match, and_tokens);
+    const menuParts = this._splitMenuParts(match, and_tokens);
     let menuData = [];
     for (let i = 0; i < menuParts.length; i++) {
       const menuPart = menuParts[i];
@@ -76,7 +76,7 @@ export default class Extractor extends Trie {
    * @param {string[]} match
    * @param {string[]} and_tokens
    */
-  _extractMenuParts(match, and_tokens) {
+  _splitMenuParts(match, and_tokens) {
     let menuParts = [];
     let menuPart = [];
     for (let i = 0; i < match.length; i++) {
@@ -90,6 +90,10 @@ export default class Extractor extends Trie {
     }
     menuParts.push(menuPart);
     return menuParts;
+  }
+
+  splitMenuParts(text) {
+    return this._splitMenuParts(this.match(text), this.and_tokens);
   }
 
   /**

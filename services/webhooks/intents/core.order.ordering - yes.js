@@ -4,6 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 export default async function orderingYes(body) {
+  console.log("orderingYes");
   console.log(JSON.stringify(body, null, 2));
 
   return {};

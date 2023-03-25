@@ -48,7 +48,6 @@ hooksRouter.post("/", async (req, res) => {
   }
   /** @type {ResponseObject} */
   const body = req.body;
-  console.log(JSON.stringify(body, null, 2));
   // get display name of intent
   const intent = body.queryResult.intent.displayName;
   // run js file for intent from ../../intents/{displayName}.js
@@ -62,7 +61,8 @@ hooksRouter.post("/", async (req, res) => {
 
     response = await import("../../intents/default.js");
   }
-  res.json(await response.default(body));
+  const reply = await response.default(body);
+  res.json(reply);
 });
 
 export default hooksRouter;

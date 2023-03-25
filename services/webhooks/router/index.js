@@ -17,8 +17,9 @@ const router = Router();
 router.use(async (req, res, next) => {
   // in format [time] [method] [url] req.body
   console.log(
-    `[${new Date().toLocaleString()}] [${req.method}] [${req.url
-    }] ${JSON.stringify(req.body)}`
+    `[${new Date().toLocaleString()}] [${req.method}] [${req.url}] ${
+      req.body?.queryResult?.queryText
+    }`
   );
   next();
 });
