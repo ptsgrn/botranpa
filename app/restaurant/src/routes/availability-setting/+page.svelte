@@ -1,9 +1,10 @@
-<!--
- Copyright (c) 2023 Patsagorn Y.
- 
- This software is released under the MIT License.
- https://opensource.org/licenses/MIT
--->
+<!-- 
+  Copyright 2022 The Bot Ran Pa Team
+
+  This software is licensed under the MIT License. See the LICENSE file at
+  the root of the repository for more information.
+ -->
+
 <script lang="ts">
 	import type { AvailabilityEntry } from '$lib/types';
 	import CheckBoxEntry from '$lib/components/availability-setting/CheckBoxEntry.svelte';

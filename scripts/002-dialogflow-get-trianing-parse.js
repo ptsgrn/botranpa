@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+// Copyright 2022 The Bot Ran Pa Team
+//
+// This software is licensed under the MIT License. See the LICENSE file at
+// the root of the repository for more information.
 const { IntentsClient } = require('@google-cloud/dialogflow').v2;
 const dialogflowClient = new IntentsClient();
 

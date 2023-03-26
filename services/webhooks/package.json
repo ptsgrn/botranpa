@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@google-cloud/dialogflow": "^5.7.0",
     "@prisma/client": "^4.11.0",

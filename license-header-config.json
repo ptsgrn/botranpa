@@ -1,0 +1,56 @@
+{
+  "$schema": "https://raw.githubusercontent.com/awjh/license-check-and-add/master/config-schema.json",
+  "license": "./license-header.txt",
+  "ignore": [
+    "**/*.(txt|ttf|woff|woff2|eot|svg|png|jpg|JPG|jpeg|gif|ico|mp4|mp3|ogg|webm|webp|pdf|zip|rar|gz|tar|bz2|7z|exe|dll|so|o|a|lib|obj|pdb|class|jar|war|ear|pom|xml|json|yml|yaml|log|lock|min.css|min.js|csv|config.*|.d.*)",
+    "**/*.code-workspace",
+    "**/*.lock",
+    "**/README(.md)?",
+    "**/.*",
+    "**/.svelte-kit",
+    "**/(deps|static)",
+    "**/schema.prisma"
+  ],
+  "trailingWhitespace": "TRIM",
+  "licenseFormats": {
+    "js|ts": {
+      "eachLine": {
+        "prepend": "// "
+      }
+    },
+    "py": {
+      "eachLine": {
+        "prepend": "# "
+      }
+    },
+    "html": {
+      "prepend": "<!-- ",
+      "append": " -->",
+      "eachLine": {
+        "prepend": "  "
+      }
+    },
+    "css": {
+      "prepend": "/* ",
+      "append": " */",
+      "eachLine": {
+        "prepend": " * "
+      }
+    },
+    "svelte": {
+      "prepend": "<!-- ",
+      "append": " -->",
+      "eachLine": {
+        "prepend": "  "
+      }
+    },
+    "ejs": {
+      "prepend": "<!-- ",
+      "append": " -->"
+    }
+  },
+  "defaultFormat": {
+    "prepend": "/* ",
+    "append": " */"
+  }
+}

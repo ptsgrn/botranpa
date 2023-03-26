@@ -1,3 +1,10 @@
+<!-- 
+  Copyright 2022 The Bot Ran Pa Team
+
+  This software is licensed under the MIT License. See the LICENSE file at
+  the root of the repository for more information.
+ -->
+
 <svelte:head>
 	<title>ข้อตกลงการใช้ซอร์ฟแวร์ ข้อปฏิเสธความรับผิดชอบ และสัญญาอนุญาตการใช้งานโปรแกรม</title>
 	<meta name="robots" content="noindex, nofollow" />

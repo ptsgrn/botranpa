@@ -1,3 +1,7 @@
+// Copyright 2022 The Bot Ran Pa Team
+//
+// This software is licensed under the MIT License. See the LICENSE file at
+// the root of the repository for more information.
 // This code is translated to JS from Python in https://stackoverflow.com/a/42789508/1202830 on StackOverflow.
 // Answered by Eric Duminil <https://stackoverflow.com/users/6419007/eric-duminil> on March 14, 2017
 // Edited by Just a learner <https://stackoverflow.com/users/170931/just-a-learner> on April 29, 2019

@@ -1,4 +1,8 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
+// Copyright 2022 The Bot Ran Pa Team
+//
+// This software is licensed under the MIT License. See the LICENSE file at
+// the root of the repository for more information.
 const { readTextFile, writeTextFile } = Deno
 
 const menus = (await readTextFile('./input/001-1-order-foodlist.txt')).split('\n')

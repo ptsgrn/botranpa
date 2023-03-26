@@ -1,0 +1,4 @@
+{
+  "jest.jestCommandLine": "node node_modules/.bin/jest",
+  "jest.rootPath": "/home/mose/schools/nsc-botranpa/packages/extractor"
+}

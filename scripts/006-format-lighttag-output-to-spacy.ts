@@ -1,4 +1,8 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
+// Copyright 2022 The Bot Ran Pa Team
+//
+// This software is licensed under the MIT License. See the LICENSE file at
+// the root of the repository for more information.
 // Copyright (c) 2023 Patsagorn Y.
 //
 // This software is released under the MIT License.

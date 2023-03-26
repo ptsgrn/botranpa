@@ -17,5 +17,10 @@
   "dependencies": {
     "node-notifier": "^10.0.1",
     "trie-prefix-tree": "^1.5.1"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "extractor.js"
+    ]
   }
 }

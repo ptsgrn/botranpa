@@ -2,9 +2,12 @@
   "name": "@botranpa/root",
   "version": "1.0.0",
   "private": true,
+  "author": "Patsagorn Y. <patsagorn.yue@pccbr.ac.th>",
   "scripts": {
     "postinstall": "preconstruct dev && manypkg check",
-    "build": "preconstruct build"
+    "build": "preconstruct build",
+    "add-license": "license-check-and-add add -f license-header-config.json -r 2022",
+    "check-license": "license-check-and-add check -f license-header-config.json"
   },
   "workspaces": [
     "scripts/*",
@@ -23,5 +26,8 @@
       "services/*",
       "packages/*"
     ]
+  },
+  "devDependencies": {
+    "license-check-and-add": "^4.0.5"
   }
 }
