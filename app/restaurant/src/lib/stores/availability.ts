@@ -3,8 +3,10 @@
 // This software is licensed under the MIT License. See the LICENSE file at
 // the root of the repository for more information.
 
-import type { AvailabilityData } from '$lib/types';
+import type { AvailabilityEntry } from '$lib/types';
 import { writable } from 'svelte/store';
 
-export const availabilities = writable<AvailabilityData[]>([]);
+export const availabilities = writable<AvailabilityEntry[]>([]);
 export const isEditing = writable<boolean>(false);
+
+export const availabilitiesEditingBuffer = writable<AvailabilityEntry[]>([]);

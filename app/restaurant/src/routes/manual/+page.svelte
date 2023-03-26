@@ -9,19 +9,13 @@
 	import { Add, Checkmark, Edit, Save, TrashCan } from 'carbon-icons-svelte';
 	import ShowOnAlt from '$lib/components/ShowOnAlt.svelte';
 </script>
-
-<!--
- Copyright (c) 2023 Patsagorn Y.
- 
- This software is released under the MIT License.
- https://opensource.org/licenses/MIT
--->
 <svelte:head>
 	<title>คู่มือการใช้งานสำหรับร้านค้า</title>
 </svelte:head>
 
 <div
-	class="prose prose-indigo prose-indigo-dark max-w-xl m-auto 
+	class="
+	prose prose-indigo prose-indigo-dark max-w-xl m-auto 
   prose-h1:text-3xl prose-h1:mt-4 prose-h1:mb-2 prose-h1:font-bold prose-h1:dark:text-gray-200 prose-h1:dark:font-bold prose-h1:font-display
   prose-h2:text-2xl prose-h2:font-display 
   prose-p:font-serif
@@ -92,7 +86,7 @@
 			>
 			เพื่อเพิ่มเมนูในกล่องกลุ่ม และสามารถกดปุ่ม
 			<button
-				class="btn btn-sm btn-ghost tooltip gap-3"
+				class="btn btn-sm btn-ghost tooltip gap-3 align-baseline"
 				data-tip={`เปลี่ยนชื่อหัวข้อ "ชื่อหัวข้อ"`}
 			>
 				<Edit />
@@ -101,7 +95,7 @@
 		</li>
 		<li>
 			<b>การลบรายการ:</b> สามารถลบรายการได้โดยการกดปุ่ม
-			<button class="btn btn-sm tooltip tooltip-bottom gap-3" data-tip="ลบออก">
+			<button class="btn btn-sm tooltip tooltip-bottom gap-3 align-baseline" data-tip="ลบออก">
 				<TrashCan class="w-5 h-5 fill-red-400" />
 				<ShowOnAlt>ถังขยะ</ShowOnAlt>
 			</button>
@@ -121,7 +115,7 @@
 			จะเปิดหน้าต่างให้กรอกข้อมูลรายละเอียดของรายการ เมื่อแก้ไขเรียบร้อยใหกดปุ่ม
 			<button class="btn btn-primary btn-sm">ปิด</button>
 			เพื่อปิดหน้าต่าง โดยเมื่อปิดแล้วให้กดบันทึกเพื่อบันทึกการเปลี่ยนแปลง หากต้องการยกเลิกการแก้ไข สามารถกดปุ่ม
-			<button class="btn btn-secondary btn-outline btn-sm">ยกเลิก</button> ได้ โดยรายการใดที่มีการแก้ไข
+			<button class="btn btn-secondary btn-outline btn-sm align-baseline">ยกเลิก</button> ได้ โดยรายการใดที่มีการแก้ไข
 			จะมีจุดสีฟ้าแสดงที่ปุ่มแก้ไขด้วย ดังภาพด้านล่าง
 		</li>
 	</ul>

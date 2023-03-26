@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type OrderMenu {
+  name    String
+  options OrderMenuOptions[]
+}
+
+type OrderMenuOptions {
+  name String
+  type String
+}
+
+model availableMenu {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  alias     String[]
+  available Boolean
+  group     String
+  name      String
+  type      String
+}
+
+model order {
+  id   String      @id @default(auto()) @map("_id") @db.ObjectId
+  menu OrderMenu[]
+  time DateTime    @db.Date
+}

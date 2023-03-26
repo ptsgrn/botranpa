@@ -4,37 +4,19 @@
   This software is licensed under the MIT License. See the LICENSE file at
   the root of the repository for more information.
  -->
-
 <script lang="ts">
 	import type { AvailabilityEntry } from '$lib/types';
 	import CheckBoxEntry from '$lib/components/availability-setting/CheckBoxEntry.svelte';
 	import AvailabillitySet from '$lib/components/availability-setting/AvailabillitySet.svelte';
-	import { availabilities } from '$lib/stores/availability';
+	import { availabilities, availabilitiesEditingBuffer } from '$lib/stores/availability';
 	import { isEditing } from '$lib/stores/availability';
 	import { Add, Edit, Reset, Save } from 'carbon-icons-svelte';
+	import type { PageData } from './$types';
 
-	$availabilities = [
-		{
-			type: 'เมนู',
-			group: 'เมนูหลัก',
-			name: 'ข้าวผัดไข่เจียว',
-			available: true
-		},
-		{
-			type: 'วัตถุดิบ',
-			group: 'ผัก',
-			name: 'ผักกาดหอม',
-			available: true
-		},
-		{
-			type: 'วัตถุดิบ',
-			group: 'ผัก',
-			name: 'กวางตุ้ง',
-			available: false
-		}
-	];
-
+	export let data: PageData;
+	$availabilities = data.availabilitiesData;
 	$: setGroup = $availabilities.map((a) => a.type).filter((v, i, a) => a.indexOf(v) === i);
+	$availabilitiesEditingBuffer = $availabilities;
 </script>
 
 <svelte:head>
@@ -47,12 +29,23 @@
 	จะนำไปใช้ในการตอบกลับลูกค้าโดยแชตบอต
 </p>
 
-{#each setGroup as group, i}
-	<AvailabillitySet typeName={`${group}`} />
-	{#if i + 1 < setGroup.length}
-		<hr class="my-4" />
-	{/if}
-{/each}
+{#if !$isEditing}
+	(not editing mode) {JSON.stringify($availabilities)}
+	{#each setGroup as group, i}
+		<AvailabillitySet typeName={`${group}`} />
+		{#if i + 1 < setGroup.length}
+			<hr class="my-4" />
+		{/if}
+	{/each}
+{:else}
+	(editing mode) {JSON.stringify($availabilitiesEditingBuffer)}
+	{#each $availabilitiesEditingBuffer.map((a) => a.type).filter((v, i, a) => a.indexOf(v) === i) as group, i}
+		<AvailabillitySet typeName={`${group}`} />
+		{#if i + 1 < $availabilitiesEditingBuffer.length}
+			<hr class="my-4" />
+		{/if}
+	{/each}
+{/if}
 
 <div class="flex justify-end mt-4 gap-2 items-center">
 	{#if $isEditing}

@@ -25,7 +25,7 @@ export interface Order {
 export interface AvailabilityEntry {
 	available: boolean;
 	/** type */
-	type: 'วัตถุดิบ' | 'เมนู';
+	type: string;
 	/** group of type */
 	group: string;
 	/** Label to show */

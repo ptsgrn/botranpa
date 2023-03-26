@@ -6,13 +6,15 @@
  -->
 
 <div
-	class="prose 
+	class="
+	m-auto
+	prose
   prose-h1:font-display prose-h1:text-2xl prose-h1:font-bold
   prose-h2:font-bold     prose-h2:font-display   prose-h2:text-xl prose-h2:mt-5
   prose-h3:font-bold     prose-h3:font-display   prose-h3:text-lg prose-h3:mt-5
   prose-p:font-serif     prose-pmy-2
   prose-ul:font-serif    prose-ul:ml-5           prose-ul:mt-2    prose-ul:mb-2
-  prose-a:link           prose-a:link-hover      prose-a:link-primary
+  prose-a:link           prose-a:link-hover      prose-a:text-blue-300
   "
 >
 	<h1>บอตร้านป้า: แชตบอตรับออเดอร์ร้านอาหารตามสั่งโดยใช้ภาษาธรรมชาติ</h1>
