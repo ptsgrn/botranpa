@@ -5,50 +5,47 @@
   the root of the repository for more information.
  -->
 
-
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>V1 Documentation</title>
-  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
-  <style>
-    :root {
-      --primary: #fdd835;
-    }
-
-    @media (prefers-color-scheme: dark) {
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>V1 Documentation</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
+    />
+    <style>
       :root {
         --primary: #fdd835;
       }
 
-      html {
-        background: #1e1e1e;
-        color: #fff;
-      }
-    }
-  </style>
-</head>
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --primary: #fdd835;
+        }
 
-<body>
-  <main class="container mx-auto prose">
-    <h1>
-      <a href="/">V1 Documentation</a>
-    </h1>
-    <section>
-      <h2>
-        Get All Available Menu
-      </h2>
-      <p>
-        <code>GET</code> <code>/api/v1/available-menu</code>
-      </p>
-      <p>
-        <strong>Response</strong>
-      </p>
-      <pre><code class="language-json">[
+        html {
+          background: #1e1e1e;
+          color: #fff;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="container mx-auto prose">
+      <h1>
+        <a href="/">V1 Documentation</a>
+      </h1>
+      <section>
+        <h2>Get All Available Menu</h2>
+        <p><code>GET</code> <code>/api/v1/available-menu</code></p>
+        <p>
+          <strong>Response</strong>
+        </p>
+        <pre><code class="language-json">[
   {
     "id": "1",
     "name": "ข้าวมันไก่",
@@ -74,18 +71,14 @@
     "type": "อาหารหลัก"
   }
 ]</code></pre>
-    </section>
-    <section>
-      <h2>
-        Get Available Menu By ID
-      </h2>
-      <p>
-        <code>GET</code> <code>/api/v1/available-menu/:id</code>
-      </p>
-      <p>
-        <strong>Response</strong>
-      </p>
-      <pre><code class="language-json">{
+      </section>
+      <section>
+        <h2>Get Available Menu By ID</h2>
+        <p><code>GET</code> <code>/api/v1/available-menu/:id</code></p>
+        <p>
+          <strong>Response</strong>
+        </p>
+        <pre><code class="language-json">{
   "id": "1",
   "name": "ข้าวมันไก่",
   "available": true,
@@ -97,60 +90,50 @@
   "group": "ข้าว",
   "type": "อาหารหลัก"
 }</code></pre>
-    </section>
-    <section>
-      <h2>
-        Get Available Menu Available
-      </h2>
-      <p>
-        <code>GET</code> <code>/api/v1/available-menu/:id/available</code>
-      </p>
-      <p>
-        <strong>Response</strong>
-      </p>
-      <pre><code class="language-json">{
+      </section>
+      <section>
+        <h2>Get Available Menu Available</h2>
+        <p>
+          <code>GET</code> <code>/api/v1/available-menu/:id/available</code>
+        </p>
+        <p>
+          <strong>Response</strong>
+        </p>
+        <pre><code class="language-json">{
   "available": true
 }</code></pre>
-    </section>
-    <section>
-      <h2>
-        Get Available Menu Alias
-      </h2>
-      <p>
-        <code>GET</code> <code>/api/v1/available-menu/:id/alias</code>
-      </p>
-      <p>
-        <strong>Response</strong>
-      </p>
-      <pre><code class="language-json">{
+      </section>
+      <section>
+        <h2>Get Available Menu Alias</h2>
+        <p><code>GET</code> <code>/api/v1/available-menu/:id/alias</code></p>
+        <p>
+          <strong>Response</strong>
+        </p>
+        <pre><code class="language-json">{
   "alias": [
     "ข้าวมันไก่",
     "ข้าวมันไก่ทอด",
     "ข้าวมันไก่ทอดกรอบ"
   ]
 }</code></pre>
-    </section>
-    <section>
-      <h2>
-        Add Available Menu Alias
-      </h2>
-      <p>
-        <code>POST</code> <code>/api/v1/available-menu/:id/alias</code>
-      </p>
-      <p>
-        <strong>Request</strong>
-      </p>
-      <pre><code class="language-json">{
+      </section>
+      <section>
+        <h2>Add Available Menu Alias</h2>
+        <p><code>POST</code> <code>/api/v1/available-menu/:id/alias</code></p>
+        <p>
+          <strong>Request</strong>
+        </p>
+        <pre><code class="language-json">{
   "alias": [
     "ข้าวมันไก่",
     "ข้าวมันไก่ทอด",
     "ข้าวมันไก่ทอดกรอบ"
   ]
 }</code></pre>
-      <p>
-        <strong>Response</strong>
-      </p>
-      <pre><code class="language-json">{
+        <p>
+          <strong>Response</strong>
+        </p>
+        <pre><code class="language-json">{
   "id": "1",
   "name": "ข้าวมันไก่",
   "available": true,
@@ -162,52 +145,59 @@
   "group": "ข้าว",
   "type": "อาหารหลัก"
 }</code></pre>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <footer>
-    <input type="checkbox" id="toggle">
-    <label for="toggle">Dark/light mode</label>
-  </footer>
-  <style>
-    footer {
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 1rem;
-      background: var(--primary);
-      color: #fff;
-      text-align: center;
-    }
+    <footer>
+      <input type="checkbox" id="toggle" />
+      <label for="toggle">Dark/light mode</label>
+    </footer>
+    <style>
+      footer {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background: var(--primary);
+        color: #fff;
+        text-align: center;
+      }
 
-    footer label {
-      display: inline-block;
-      margin: 0;
-      padding: 0.5rem 1rem;
-      border: 1px solid #fff;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
-  </style>
-  <script src="https://unpkg.com/@picocss/pico@1.*/js/pico.min.js"></script>
-  <script>
-    const toggle = document.getElementById('toggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+      footer label {
+        display: inline-block;
+        margin: 0;
+        padding: 0.5rem 1rem;
+        border: 1px solid #fff;
+        border-radius: 0.25rem;
+        cursor: pointer;
+      }
+    </style>
+    <script src="https://unpkg.com/@picocss/pico@1.*/js/pico.min.js"></script>
+    <script>
+      const toggle = document.getElementById("toggle");
+      const prefersDarkScheme = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
 
-    toggle.addEventListener('change', (e) => {
-      // data-theme="light" or data-theme="dark"
-      document.documentElement.setAttribute('data-theme', e.target.checked ? 'dark' : 'light');
-    });
+      toggle.addEventListener("change", (e) => {
+        // data-theme="light" or data-theme="dark"
+        document.documentElement.setAttribute(
+          "data-theme",
+          e.target.checked ? "dark" : "light"
+        );
+      });
 
-    // Update the toggle's checked state when the page is loaded
-    toggle.checked = prefersDarkScheme.matches;
-    // Listen for changes to the prefers-color-scheme media query
-    prefersDarkScheme.addListener((mediaQuery) => {
-      toggle.checked = mediaQuery.matches;
-    });
+      // Update the toggle's checked state when the page is loaded
+      toggle.checked = prefersDarkScheme.matches;
+      // Listen for changes to the prefers-color-scheme media query
+      prefersDarkScheme.addListener((mediaQuery) => {
+        toggle.checked = mediaQuery.matches;
+      });
 
-    document.documentElement.setAttribute('data-theme', prefersDarkScheme.matches ? 'dark' : 'light');
-  </script>
-</body>
-
+      document.documentElement.setAttribute(
+        "data-theme",
+        prefersDarkScheme.matches ? "dark" : "light"
+      );
+    </script>
+  </body>
 </html>

@@ -11,7 +11,7 @@
 import { appendFile, open } from "fs/promises";
 
 import { Router } from "express";
-import apiRouterV1 from './api/v1/index.js';
+import apiRouterV1 from "./api/v1/index.js";
 import hooksRouter from "./hooks/index.js";
 
 const router = Router();
@@ -40,7 +40,7 @@ router.get("/playground", (req, res) => {
   });
 });
 
-router.use('/api/v1', apiRouterV1);
+router.use("/api/v1", apiRouterV1);
 
 router.use((req, res, next) => {
   if (req.method === "GET")
