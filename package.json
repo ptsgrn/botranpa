@@ -4,7 +4,8 @@
   "private": true,
   "author": "Patsagorn Y. <patsagorn.yue@pccbr.ac.th>",
   "scripts": {
-    "postinstall": "preconstruct dev && manypkg check",
+    "postinstall": "if [ $CLIENT_ENV ]; then yarn postinstall-client; elif [ $SERVER_ENV ]; then yarn postinstall-server; else echo no environment detected, please set CLIENT_ENV or SERVER_ENV; fi",
+    "postinstall-server": "cd services/webhooks && yarn",
     "build": "preconstruct build",
     "add-license": "license-check-and-add add -f license-header-config.json -r 2022",
     "check-license": "license-check-and-add check -f license-header-config.json"
