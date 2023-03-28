@@ -30,8 +30,8 @@ export interface AvailabilityEntry {
 	group: string;
 	/** Label to show */
 	name: string;
-	/** Sorting number */
-	sort?: number;
 	/** Id */
 	id?: string;
+	/** alias */
+	alias?: string[];
 }

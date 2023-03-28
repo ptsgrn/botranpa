@@ -33,7 +33,8 @@ const config = {
 		]
 	},
 
-	plugins: [typography, daisyui]
+	plugins: [typography, daisyui],
+	darkMode: 'class'
 };
 
 module.exports = config;

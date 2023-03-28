@@ -10,13 +10,61 @@
 	import AvailabillitySet from '$lib/components/availability-setting/AvailabillitySet.svelte';
 	import { availabilities, availabilitiesEditingBuffer } from '$lib/stores/availability';
 	import { isEditing } from '$lib/stores/availability';
-	import { Add, Edit, Reset, Save } from 'carbon-icons-svelte';
+	import { Edit, Error, Reset, Save } from 'carbon-icons-svelte';
+	import { Spinner } from 'flowbite-svelte';
 	import type { PageData } from './$types';
+	import { dev } from '$app/environment';
 
 	export let data: PageData;
 	$availabilities = data.availabilitiesData;
-	$: setGroup = $availabilities.map((a) => a.type).filter((v, i, a) => a.indexOf(v) === i);
+	$: setGroup = [
+		...$availabilities.map((a) => a.type).filter((v, i, a) => a.indexOf(v) === i),
+		'เมนู',
+		'วัตถุดิบ'
+	].filter((v, i, a) => a.indexOf(v) === i);
 	$availabilitiesEditingBuffer = $availabilities;
+	$: setGroupEditingBuffer = [
+		...$availabilitiesEditingBuffer.map((a) => a.type).filter((v, i, a) => a.indexOf(v) === i),
+		'เมนู',
+		'วัตถุดิบ'
+	].filter((v, i, a) => a.indexOf(v) === i);
+
+	let isSaving = false;
+	let isSavingError = false;
+	async function onSave() {
+		isSaving = true;
+		await fetch('/api/ae', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				availabilities: $availabilitiesEditingBuffer
+			})
+		})
+			.then(async (res) => {
+				if (res.ok) {
+					const { error, availabilitiesAfterUpdate, diff } = await res.json();
+					$availabilities = availabilitiesAfterUpdate;
+					$isEditing = false;
+					$availabilitiesEditingBuffer = $availabilities;
+					if (error) {
+						isSavingError = true;
+						console.error(error);
+					}
+					if (dev) {
+						console.log('diff', diff);
+					}
+				}
+			})
+			.catch((e) => {
+				isSavingError = true;
+				console.error(e);
+			})
+			.finally(() => {
+				isSaving = false;
+			});
+	}
 </script>
 
 <svelte:head>
@@ -30,18 +78,18 @@
 </p>
 
 {#if !$isEditing}
-	(not editing mode) {JSON.stringify($availabilities)}
 	{#each setGroup as group, i}
 		<AvailabillitySet typeName={`${group}`} />
 		{#if i + 1 < setGroup.length}
 			<hr class="my-4" />
 		{/if}
+	{:else}
+		<div>- ยังไม่มีประเภทนี้ในตอนนี้ -</div>
 	{/each}
 {:else}
-	(editing mode) {JSON.stringify($availabilitiesEditingBuffer)}
-	{#each $availabilitiesEditingBuffer.map((a) => a.type).filter((v, i, a) => a.indexOf(v) === i) as group, i}
+	{#each setGroupEditingBuffer as group, i}
 		<AvailabillitySet typeName={`${group}`} />
-		{#if i + 1 < $availabilitiesEditingBuffer.length}
+		{#if i + 1 < setGroupEditingBuffer.length}
 			<hr class="my-4" />
 		{/if}
 	{/each}
@@ -52,15 +100,22 @@
 		<span>อย่าลืมบันทึกการแก้ไข</span>
 		<button
 			class="btn btn-secondary btn-outline gap-3"
+			disabled={isSaving}
 			on:click={() => {
 				$isEditing = false;
+				$availabilitiesEditingBuffer = $availabilities;
 			}}
 		>
 			<Reset class="inline-block w-6 h-6" />
 			ยกเลิกการแก้ไขและออก
 		</button>
-		<button class="btn btn-primary gap-3">
-			<Save class="inline-block w-6 h-6" /> บันทึก
+		<button
+			disabled={isSaving}
+			class="btn btn-primary gap-3 {isSaving ? 'loading' : ''}"
+			on:click={onSave}
+		>
+			<Save class="inline-block w-6 h-6" />
+			บันทึก
 		</button>
 	{:else}
 		<button
@@ -78,4 +133,22 @@
 			แก้ไขรายละเอียดรายการ
 		</button>
 	{/if}
+</div>
+<div class="toast toast-end hidden {isSavingError ? '' : 'hidden'}">
+	<div class="alert alert-error shadow-lg flex-row items-center justify-center align-baseline">
+		<div>
+			<Error class="inline-block w-6 h-6" />
+			<span>ไม่สามารถบันทึกการแก้ไขได้</span>
+		</div>
+		<div class="flex-none">
+			<button
+				class="btn btn-sm btn-primary"
+				on:click={() => {
+					$isEditing = true;
+					isSaving = false;
+					isSavingError = false;
+				}}>ปิด</button
+			>
+		</div>
+	</div>
 </div>
