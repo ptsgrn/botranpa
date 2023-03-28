@@ -9,13 +9,13 @@ export interface Option {
 
 export interface Menu {
 	name: string;
-	count: number;
+	count?: number;
 	note?: string;
 	options: Option[];
 }
 
 export interface Order {
-	orderID?: string | number;
+	id?: string;
 	table?: string | number;
 	isDone: boolean;
 	time: Date;

@@ -4,163 +4,67 @@
   This software is licensed under the MIT License. See the LICENSE file at
   the root of the repository for more information.
  -->
-
-<script>
+<script lang="ts">
 	import OrderCard from '$lib/components/OrderCard.svelte';
-	import { orders } from '$lib/stores/orders';
-	$orders = [
-		{
-			orderID: 1,
-			table: 1,
-			isDone: false,
-			time: new Date(),
-			menu: [
-				{
-					name: 'เส้นเล็กต้มยำ',
-					count: 1,
-					options: [
-						{
-							name: 'ไข่',
-							type: 'add'
-						},
-						{
-							name: 'หมู',
-							type: 'remove'
-						}
-					],
-					note: 'หวานๆ'
-				},
-				{
-					name: 'บะหมี่แห้งน้ำใส',
-					count: 1,
-					options: []
-				}
-			]
+	import { orders, orderDone } from '$lib/stores/orders';
+	import { onMount } from 'svelte';
+	import type { PageData, Snapshot } from './$types';
+	export let data: PageData;
+	export const snapshot: Snapshot = {
+		capture: () => {
+			return {
+				orderDone: $orderDone
+			};
 		},
-		{
-			orderID: 2,
-			table: 1,
-			isDone: false,
-			time: new Date(),
-			menu: [
-				{
-					name: 'เส้นเล็กต้มยำ',
-					count: 1,
-					options: [
-						{
-							name: 'ไข่',
-							type: 'add'
-						},
-						{
-							name: 'หมู',
-							type: 'remove'
-						}
-					],
-					note: 'หวานๆ'
-				},
-				{
-					name: 'บะหมี่แห้งน้ำใส',
-					count: 1,
-					options: []
-				}
-			]
-		},
-		{
-			orderID: 3,
-			table: 1,
-			isDone: false,
-			time: new Date(),
-			menu: [
-				{
-					name: 'เส้นเล็กต้มยำ',
-					count: 1,
-					options: [
-						{
-							name: 'ไข่',
-							type: 'add'
-						},
-						{
-							name: 'หมู',
-							type: 'remove'
-						}
-					],
-					note: 'หวานๆ'
-				},
-				{
-					name: 'บะหมี่แห้งน้ำใส',
-					count: 1,
-					options: []
-				}
-			]
-		},
-		{
-			orderID: 4,
-			table: 1,
-			isDone: false,
-			time: new Date(),
-			menu: [
-				{
-					name: 'เส้นเล็กต้มยำ',
-					count: 1,
-					options: [
-						{
-							name: 'ไข่',
-							type: 'add'
-						},
-						{
-							name: 'หมู',
-							type: 'remove'
-						}
-					],
-					note: 'หวานๆ'
-				},
-				{
-					name: 'บะหมี่แห้งน้ำใส',
-					count: 1,
-					options: []
-				}
-			]
-		},
-		{
-			orderID: 5,
-			table: 1,
-			isDone: false,
-			time: new Date(),
-			menu: [
-				{
-					name: 'เส้นเล็กต้มยำ',
-					count: 1,
-					options: [
-						{
-							name: 'ไข่',
-							type: 'add'
-						},
-						{
-							name: 'หมู',
-							type: 'remove'
-						}
-					],
-					note: 'หวานๆ'
-				},
-				{
-					name: 'บะหมี่แห้งน้ำใส',
-					count: 1,
-					options: []
-				}
-			]
+		restore: (value) => {
+			$orderDone = value.orderDone;
 		}
-	];
-	$: $orders = $orders.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()).sort((a, b)=> a.isDone? 1: -1);
+	};
+	$orders =
+		data.orders?.map((a) => ({
+			...a,
+			isDone: $orderDone.includes(a.id),
+			time: new Date(a.time)
+		})) || [];
+	$: $orders = $orders
+		.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
+		.sort((a, b) => (a.isDone ? 1 : -1))
+		.map((a, i) => ({ ...a, isDone: $orderDone.includes(a.id || 'wtf') }));
+	let countDown = 10;
+	onMount(() => {
+		let interval = setInterval(async () => {
+			countDown--;
+			if (countDown <= 0) {
+				fetch(new URL('/api/orders', document.baseURI).href)
+					.then((res) => res.json())
+					.then((resData) => {
+						if (!resData.order) return;
+						$orders = resData.order.map((a) => ({
+							...a,
+							isDone: $orderDone.includes(a.id),
+							time: new Date(a.time)
+						}));
+					})
+					.catch((e) => {
+						console.error(e);
+					});
+				countDown = 10;
+			}
+		}, 1000);
+	});
 </script>
 
 <h1 class="text-2xl">รายการอาหารที่สั่ง</h1>
 <div class="stats bg-gray-800 mt-5">
 	<div class="stat">
 		<div class="stat-title">เหลืออีก</div>
-		<div class="stat-value text-primary">{$orders.filter(o=>!o.isDone).length}</div>
+		<div class="stat-value text-primary">{$orders.filter((o) => !o.isDone).length}</div>
 		<div class="stat-desc">ออเดอร์</div>
 	</div>
 </div>
+<span class="countdown float-right mt-5 font-serif text-sm">
+	รีโหลดครั้งต่อไปใน<span class="mx-2 font-mono" style="--value:{countDown};">{countDown}</span> วินาที
+</span>
 <div
 	class="py-5 gap-4 snap-x snap-proximity flex flex-none flex-nowrap flex-row overflow-auto w-full scrollbar
   "
@@ -185,5 +89,4 @@
 	.scrollbar::-webkit-scrollbar-thumb:hover {
 		background: #494500;
 	}
-
 </style>

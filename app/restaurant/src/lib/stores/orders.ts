@@ -4,5 +4,5 @@
 // the root of the repository for more information.
 import type { Order } from '$lib/types';
 import { writable } from 'svelte/store';
-
 export const orders = writable<Order[]>([]);
+export const orderDone = writable<string[]>([]);

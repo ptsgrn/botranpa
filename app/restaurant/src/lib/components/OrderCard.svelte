@@ -4,17 +4,16 @@
   This software is licensed under the MIT License. See the LICENSE file at
   the root of the repository for more information.
  -->
-
 <script lang="ts">
 	import MenuOnOrderBoard from '$lib/components/MenuOnOrderBoard.svelte';
 	import { Checkmark } from 'carbon-icons-svelte';
-	import { orders } from '$lib/stores/orders';
+	import { orders, orderDone } from '$lib/stores/orders';
 	import type { Order } from '$lib/types';
 	import { fade } from 'svelte/transition';
 	export let order: Order = {
 		isDone: false,
 		menu: [],
-		orderID: '',
+		id: '',
 		table: 0,
 		time: new Date()
 	};
@@ -25,12 +24,12 @@
 		// month: 'long',
 		// day: 'numeric',
 		hour: 'numeric',
-		minute: 'numeric',
+		minute: 'numeric'
 		// second: 'numeric'
 	});
 </script>
 
-{#if orderIndex === $orders.filter(o=>!o.isDone).length && $orders.filter(o=>!o.isDone).length > 0}
+{#if orderIndex === $orders.filter((o) => !o.isDone).length && $orders.filter((o) => !o.isDone).length > 0}
 	<div class="divider divider-horizontal">เรียบร้อย</div>
 {/if}
 
@@ -40,8 +39,11 @@
 		: ''}
 "
 >
-	<div class="m-0 text-center py-2 bg-green-500 text-black font-semibold text-md flex flex-row justify-between px-3 font-mono" transition:fade>
-		<span>#{`${order.orderID}`.padStart(3, '0')}</span>
+	<div
+		class="m-0 text-center py-2 bg-green-500 text-black font-semibold text-md flex flex-row justify-between px-3 font-mono"
+		transition:fade
+	>
+		<span>#{`${order.id?.toString().slice(0, 4)}`.padStart(3, '0')}</span>
 		{#if order.time}
 			<span>
 				{dateFormat.format(order.time)}
@@ -56,9 +58,8 @@
 		</div>
 		<button
 			on:click={() => {
-				// order.isDone = true;
-				order.isDone = !order.isDone;
-				$orders[orderIndex].isDone = order.isDone;
+				if (!$orderDone.includes(String(order.id))) $orderDone = [...$orderDone, String(order.id)];
+				else $orderDone = $orderDone.filter((id) => id !== order.id);
 			}}
 			class="btn w-full box-border {!order.isDone ? 'btn-primary' : 'btn-outline'}"
 		>

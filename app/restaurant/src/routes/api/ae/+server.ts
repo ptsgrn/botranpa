@@ -5,7 +5,7 @@
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { deepDiffMappper } from '$lib/utils/compareObjectListDiff';
-import db from '$lib/db';
+import db from '$lib/server/db';
 
 export const GET = (({ url }) => {
 	return new Response('ok');

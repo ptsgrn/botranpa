@@ -2,9 +2,9 @@
 //
 // This software is licensed under the MIT License. See the LICENSE file at
 // the root of the repository for more information.
-import { error } from '@sveltejs/kit';
+
 import type { PageServerLoad } from './$types';
-import db from '$lib/db';
+import db from '$lib/server/db';
 
 export const load = (async () => {
 	return {

@@ -6,7 +6,7 @@
  -->
 
 <script lang="ts">
-	import type { Menu } from 'lib/types';
+	import type { Menu } from '$lib/types';
 	export let menuData: Menu = {
 		name: '',
 		count: 0,
@@ -22,7 +22,7 @@
 <div class="order-[{menuIndex}] {isDone ? 'opacity-60': ''} border-b-2 border-gray-600 py-2 mb-2 relative font-serif">
 	<span
 		class="float-right pr-2 w-10 bg-green-500 inline-block text-black font-bold text-right translate-x-2 rounded-l-full font-mono"
-		>x{menuData.count}</span
+		>x{menuData.count ?? 1}</span
 	>
 	<span class="font-semibold">{menuData.name}</span>
 	<ul class="list-['-_'] list-outside ml-5 mt-2">

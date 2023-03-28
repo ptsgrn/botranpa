@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
 import { error } from '@sveltejs/kit';
-import db from '$lib/db';
+import db from '$lib/server/db';
 
 export const POST = (async ({ params, request }) => {
 	const { id } = params;
