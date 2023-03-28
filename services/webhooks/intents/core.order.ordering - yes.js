@@ -2,14 +2,34 @@
 //
 // This software is licensed under the MIT License. See the LICENSE file at
 // the root of the repository for more information.
-// Copyright (c) 2023 Patsagorn Yuenyong
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
 
-export default async function orderingYes(body) {
-  console.log("orderingYes");
-  console.log(JSON.stringify(body, null, 2));
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export default async function orderingYes({ body, extractor }) {
+  const orderingContext = body.queryResult.outputContexts.filter((contexts) =>
+    contexts.name.includes("/contexts/ordering")
+  )[0];
+  if (!orderingContext) {
+    return {
+      fulfillmentText: "ไม่พบรายการอาหารที่คุณต้องการค่ะ",
+    };
+  }
+  const menu = JSON.parse(orderingContext.parameters?.menu);
+  console.log(JSON.stringify(menu, " ", 2));
+  await prisma.order.create({
+    data: {
+      menu: menu.map((item) => ({
+        name: item.name,
+        options: item.options.map((option) => ({
+          name: option.name,
+          type: option.type,
+        })),
+      })),
+      time: new Date(),
+    },
+  });
 
   return {};
 }

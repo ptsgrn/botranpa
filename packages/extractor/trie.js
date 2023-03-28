@@ -71,7 +71,6 @@ class Trie {
    * trie.pattern(); // => "(?:ba[rz]|fo[o])"
    */
   import(words) {
-    words = words.sort((a, b) => b.length - a.length);
     for (const word of words) {
       this.add(word);
     }

@@ -27,10 +27,16 @@
  * @property {string} languageCode - The language code of the query.
  */
 
+import extractor, { loadExtractorData } from "../../utils/extractor.js";
+
 import { Router } from "express";
 import dotenv from "dotenv";
 
 dotenv.config();
+
+setInterval(() => {
+  loadExtractorData();
+}, 1000 * 60 * 2);
 
 const hooksRouter = Router();
 
@@ -65,7 +71,8 @@ hooksRouter.post("/", async (req, res) => {
 
     response = await import("../../intents/default.js");
   }
-  const reply = await response.default(body);
+  const reply = await response.default({ body, extractor });
+  console.log("reply: ", JSON.stringify(reply, " ", 2));
   res.json(reply);
 });
 

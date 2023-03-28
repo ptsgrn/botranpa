@@ -52,9 +52,7 @@
 						isSavingError = true;
 						console.error(error);
 					}
-					if (dev) {
-						console.log('diff', diff);
-					}
+					console.log('diff', diff);
 				}
 			})
 			.catch((e) => {

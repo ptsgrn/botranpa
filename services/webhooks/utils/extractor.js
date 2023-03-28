@@ -14,26 +14,45 @@ import { setInterval } from "timers/promises";
 
 const prisma = new PrismaClient();
 
-const availableEntry = await prisma.availableMenu.findMany({
-  select: {
-    name: true,
-    available: true,
-    alias: true,
-  },
-});
+const extractor = new Extractor();
 
-const words = availableEntry
-  .map((entry) => [entry.name, ...entry.alias])
-  .flat();
+loadExtractorData();
 
-const extractor = new Extractor(words);
+async function loadExtractorData() {
+  console.log("Updating extractor");
+  const availableEntry = await prisma.availableMenu.findMany({
+    select: {
+      name: true,
+      available: true,
+      alias: true,
+    },
+  });
 
-extractor.addToken({
-  add: ["เพิ่ม", "ใส่", "และใส่"],
-  not_add: ["ไม่", "ไม่ใส่", "ไม่เพิ่ม", "แต่ไม่ใส่"],
-  and: ["และ", "และเอา", "กับ", "แล้วก็"],
-});
+  extractor.flush();
 
-await prisma.$disconnect();
+  extractor.addToken({
+    add: ["เพิ่ม", "ใส่", "และใส่"],
+    not_add: ["ไม่", "ไม่ใส่", "ไม่เพิ่ม", "แต่ไม่ใส่"],
+    and: ["และ", "และเอา", "กับ", "แล้วก็"],
+  });
+
+  const wordsWithAlias = availableEntry.map((entry) => [
+    entry.name,
+    ...entry.alias,
+  ]);
+
+  extractor.import(wordsWithAlias.flat());
+  for (const entry of availableEntry) {
+    extractor.addAlias(entry.name, entry.alias);
+  }
+  extractor.addNotAvailable(
+    availableEntry
+      .filter((entry) => !entry.available)
+      .map((entry) => entry.name)
+  );
+
+  await prisma.$disconnect();
+}
 
 export default extractor;
+export { loadExtractorData };

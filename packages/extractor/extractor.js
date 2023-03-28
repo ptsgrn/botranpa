@@ -10,6 +10,8 @@ export default class Extractor extends Trie {
     this.add_tokens = [];
     this.not_add_tokens = [];
     this.and_tokens = [];
+    this.aliasMap = new Map();
+    this.not_available = [];
   }
 
   /**
@@ -36,17 +38,15 @@ export default class Extractor extends Trie {
   addToken({ add, not_add, and }) {
     if (add) {
       this.add_tokens.push(...add);
-      this.import(add);
     }
     if (not_add) {
       this.not_add_tokens.push(...not_add);
-      this.import(not_add);
     }
     if (and) {
       this.and_tokens.push(...and);
-      this.import(and);
     }
 
+    this.import([...this.add_tokens, ...this.not_add_tokens, ...this.and_tokens]);
     return this;
   }
 
@@ -55,7 +55,9 @@ export default class Extractor extends Trie {
    * @returns parsed menu data
    */
   extract(text) {
-    const match = this.match(text);
+    console.log("match", this.match(text));
+    const match = this.match(text).map((entry) => this._replaceAlias(entry));
+    console.log("match",match);
     const add_tokens = this.add_tokens;
     const not_add_tokens = this.not_add_tokens;
     const and_tokens = this.and_tokens;
@@ -117,7 +119,7 @@ export default class Extractor extends Trie {
      * note: string,
      * options: {
      * name: string,
-     * type: "add" | "not_add"
+     * type: "add" | "remove"
      * }[]
      * }}
      */
@@ -161,11 +163,59 @@ export default class Extractor extends Trie {
    */
   _optionsType(word) {
     if (this.add_tokens.includes(word)) {
-      return "ใส่";
+      return "add";
     }
     if (this.not_add_tokens.includes(word)) {
-      return "ไม่ใส่";
+      return "remove";
     }
     return "unknown";
+  }
+
+  /**
+   *
+   * @param {string} word คำหลักที่ต้องการแทนที่เป็น
+   * @param {string[]} alias คำที่ต้องการแทนที่
+   * @returns {Extractor}
+   */
+  addAlias(word, alias) {
+    for (let i = 0; i < alias.length; i++) {
+      this.aliasMap.set(alias[i], word);
+    }
+    return this;
+  }
+
+  _replaceAlias(text) {
+    return this.aliasMap.get(text) || text;
+  }
+
+  /**
+   *
+   * @param {string[]} entry
+   * @returns {Extractor}
+   */
+  addNotAvailable(entry) {
+    this.not_available.push(...entry);
+    return this;
+  }
+
+  checkAndReturnNotAvailable(text) {
+    const match = this.match(text).map((word) => this._replaceAlias(word));
+    const not_available = this.not_available;
+    if (not_available.length === 0) return [];
+    let unavailable = [];
+    for (let i = 0; i < match.length; i++) {
+      const word = match[i];
+      if (not_available.includes(word)) {
+        unavailable.push(word);
+      }
+    }
+    return unavailable;
+  }
+
+  flush() {
+    this.data = {};
+    this.aliasMap = new Map();
+    this.not_available = [];
+    return this;
   }
 }

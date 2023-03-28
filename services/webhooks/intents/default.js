@@ -2,6 +2,6 @@
 //
 // This software is licensed under the MIT License. See the LICENSE file at
 // the root of the repository for more information.
-export default async function defaultIntent(body) {
+export default async function defaultIntent({ body }) {
   return {};
 }

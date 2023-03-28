@@ -2,7 +2,7 @@
 //
 // This software is licensed under the MIT License. See the LICENSE file at
 // the root of the repository for more information.
-export default async function suggestMe(body) {
+export default async function suggestMe({ body }) {
   let menu = "";
   let menulist = [
     "เส้นเล็กแห้งต้มยำ",

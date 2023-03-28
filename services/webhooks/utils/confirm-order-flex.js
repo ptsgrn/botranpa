@@ -125,6 +125,7 @@ class MenuBuilder {
               type: "text",
               text: `${i + 1}. ${menu.name}`,
               weight: "bold",
+              wrap: true,
               size: "xl",
             },
             {
@@ -140,7 +141,7 @@ class MenuBuilder {
                   contents: [
                     {
                       type: "text",
-                      text: option[0],
+                      text: option[0] === "add" ? "เพิ่ม" : "ไม่ใส่",
                       color: "#aaaaaa",
                       size: "sm",
                     },
